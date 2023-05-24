@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ALL">
+    <Appenders>
+        <RollingFile name="RollingFileAppender" fileName="logs/hippodrome.log"
+                     filePattern="logs/hippodrome.%d{yyyy-MM-dd}.log">
+            IgnoreExceptions="false">
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss}] [%-5p] %c{1}:%L - %m%n" />
+            <SizeBasedTriggeringPolicy size="10MB" />
+            <DefaultRolloverStrategy max="10">
+                <Delete basePath="logs" maxDepth="1">
+                    <IfFileName glob="hippodrome.*.log" />
+                    <IfLastModified age="7d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+
+        <File name="File" fileName="logs/hippodrome.log">
+            <PatternLayout pattern="%d [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+    </Appenders>
+
+    <Loggers>
+        <Root level="all">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+            <AppenderRef ref="RollingFileAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>
